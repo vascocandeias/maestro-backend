@@ -1,0 +1,112 @@
+version: '3.8'
+
+services:
+    
+    # RabbitMQ service
+    rabbitmq:
+        image: rabbitmq:3-alpine
+        volumes:
+            - ./rabbitmq/etc/definitions.json:/etc/rabbitmq/definitions.json
+            - ./rabbitmq/data:/var/lib/rabbitmq/mnesia/rabbit@my-rabbit
+            - ./rabbitmq/logs:/var/log/rabbitmq/log
+        ports:
+            - 15672:15672
+        restart: unless-stopped
+
+    # Worker service
+    worker:
+        build:
+            context: ./worker
+            dockerfile: Dockerfile
+        volumes:
+            - ./worker/local_functions.py:/srv/worker/local_functions.py
+            - ./worker/local_worker.py:/srv/worker/local_worker.py
+            - ./worker/common.py:/srv/worker/common.py
+            - ./worker/packages:/srv/worker/packages
+        environment:
+            DATABASE_SERVER: database
+            EMAIL_SERVER: email
+            PYTHONUNBUFFERED: 1
+        depends_on:
+            - rabbitmq
+            - gateway
+        restart: unless-stopped
+        
+    # Email service
+    email:
+        build:
+            context: ./email_server
+        environment: 
+            # Get the MAIL variables from your email provider
+            MAIL_SERVER: mail_server # CHANGE
+            MAIL_USER: mail_user # CHANGE
+            MAIL_PASSWORD: mail_password # CHANGE
+            MAIL_PORT: mail_port # CHANGE
+            SECRET_KEY: thisissecret # CHANGE
+        volumes:
+            - ./email_server/app.py:/app/app.py
+            - ./email_server/uwsgi.ini:/app/uwsgi.ini
+            - ./email_server/.env/:/app/.env
+        restart: unless-stopped
+
+    # Gateway service
+    gateway:
+        build:
+            context: ./gateway
+        volumes:
+            - ./gateway/app.py:/app/app.py
+            - ./gateway/users:/app/users
+            - ./gateway/uwsgi.ini:/app/uwsgi.ini
+            - ./gateway/maestro:/app/maestro
+            - ./gateway/.env/:/app/.env
+        environment: 
+            MAIL: mail_address # Address to include in the registration email CHANGE
+            SECRET_KEY: thisissecret # CHANGE
+            RABBITMQ_SERVER: rabbitmq
+            DATABASE_SERVER: database
+            EMAIL_SERVER: email
+            WEBSITE_URL: website # website to be used to send in the result email CHANGE
+        ports:
+            - 80:80
+        restart: unless-stopped
+
+
+    # Two services for the database, the MongoDB ...
+    mongodb:
+        image: mongo:latest
+        restart: unless-stopped
+        command: mongod --auth
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: mongodb_user # CHANGE
+            MONGO_INITDB_ROOT_PASSWORD: mongodb_password # CHANGE
+            MONGO_INITDB_DATABASE: maestro
+            MONGODB_DATA_DIR: /data/db
+            MONDODB_LOG_DIR: /data/logs
+        volumes:
+            - ./database/data/db:/data/db
+            - ./database/data/logs:/data/logs
+        expose:
+            - 27017
+        ports: 
+            - 27017:27017
+        restart: unless-stopped
+
+    # ... and the API
+    database:
+        build:
+            context: ./database
+        volumes:
+            - ./database/app.py:/app/app.py
+            - ./database/uwsgi.ini:/app/uwsgi.ini
+            - ./database/files:/app/files
+            - ./database/examples:/app/examples
+            - ./database/methods:/app/methods
+        environment:
+            PYTHONUNBUFFERED: 1
+            MONGODB_USERNAME: mongodb_user # Should match MONGO_INITDB_ROOT_USERNAME CHANGE
+            MONGODB_PASSWORD: mongodb_password # Should match MONGO_INITDB_ROOT_PASSWORD CHANGE
+            MONGODB_DATABASE: maestro
+            MONGODB_HOSTNAME: mongodb
+        depends_on:
+            - mongodb
+        restart: unless-stopped

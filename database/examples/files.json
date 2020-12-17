@@ -1,0 +1,38 @@
+[
+    {
+        "name": "combinedDataset.csv",
+        "method": "clustering"
+    },
+    {
+        "name": "continuous_example_data.csv",
+        "method": "outlier detection"
+    },
+    {
+        "name": "discrete_example_data.csv",
+        "method": "outlier detection"
+    },
+    {
+        "name": "example1_dynamic.csv",
+        "method": "modeling"
+    },
+    {
+        "name": "example1_static.csv",
+        "method": "modeling"
+    },
+    {
+        "name": "example2_dynamic_inf.csv",
+        "method": "prediction"
+    },
+    {
+        "name": "example2_infVars.csv",
+        "method": "prediction"
+    },
+    {
+        "name": "example2_static_inf.csv",
+        "method": "prediction"
+    },
+    {
+        "name": "exmp1.csv",
+        "method": "imputation"
+    }
+]
