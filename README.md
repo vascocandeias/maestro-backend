@@ -3,4 +3,4 @@ This repo contains the on-prem implementation of [MAESTRO](https://vascocandeias
 
 
 
-![local](/Local.pdf)
+![local](Local.png)
