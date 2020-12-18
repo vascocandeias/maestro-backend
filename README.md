@@ -1,2 +1,6 @@
-# maestro-backend
-On-prem MAESTRO back-end
+# MAESTRO back-end
+This repo contains the on-prem implementation of [MAESTRO](https://vascocandeias.github.io/maestro), a website for multivariate time series analysis using dynamic Bayesian networks. 
+
+
+
+![alt text](./Local.pdf)
