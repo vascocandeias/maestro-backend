@@ -1,5 +1,5 @@
 # MAESTRO back-end
-This repo contains the on-prem implementation of [MAESTRO](https://vascocandeias.github.io/maestro), a website for multivariate time series analysis using dynamic Bayesian networks. The local architecture is depicted bellow.
+This repo contains the on-prem implementation of [MAESTRO](https://vascocandeias.github.io/maestro), a website for multivariate time series analysis using dynamic Bayesian networks which can be [deployed on-premises](#getting-started). The local architecture is depicted bellow.
 
 <p align="center">
   <img src="Local.png"/>
@@ -30,8 +30,10 @@ Just press ```Ctrl+C```.
 If you want to change the number of workers to ```x```, open a new terminal in the project root directory and run ```docker-compose up -d --scale worker=x```.
 
 ### Adding more packages
+You may also add your custom methods to this website to take advantage of its architecture and front-end without having to build an entire system. Read further to know how to upload the program's code, interface and template.
+
 #### Code and interface
-To add more packages, you must copy the program to ```worker/packages```. Furthermore, you must create an interface json file in the same directory with a specific scheme. The following file is the interface of the ```eqw``` method, ```eqw.json```:
+To add more packages, you must copy the program to ```worker/packages```. Furthermore, you must create an interface JSON file in the same directory with a specific scheme. The following file is the interface of the ```eqw``` method, ```eqw.json```:
 
 ```json
 {
@@ -64,12 +66,12 @@ To add more packages, you must copy the program to ```worker/packages```. Furthe
 }
 ```
 The fields are the following:
-  * ```cmd``` (strings list) -- The base command to execute the package as a list of strings, to which the remaining parameters will be added.
-  * ```params``` (dict) -- A dictionary containing the flags accepted by the package, as key-value pairs, used to filter the request. When the value is a Boolean, the flag takes no value, and should simply be either present or absent. Otherwise, the value is either the default value or a representation of the type of input but will not affect building the command.
-  * ```inputFiles``` (dict) -- A key-value representation of the accepted input files, where the value is a description the file used for the corresponding key.
-  * ```outputFiles``` (dict) -- A dictionary containing as its keys the output files, which should be saved in the database. When these values have no metadata, the value is ```{}```. Otherwise, the value will be a dictionary with a ```table``` key, containing the name of the table that should hold the metadata, followed by this information represented as key-value pairs and, finally, it might even have an ```original``` field, reserved for whenever the result inherits metadata from one of the ```inputFiles```. To accommodate these unknowns, this attribute consists of key-value pairs where the keys must also be present in ```inputFiles``` and the values are dictionaries consisting of the following attributes:
-    * ```table``` (string) -- The table containing the original file.
-    * ```attributes``` (string list) -- A list with the metadata attributes to copy from the original file.
+  * ```cmd``` (strings list) - The base command to execute the package as a list of strings, to which the remaining parameters will be added.
+  * ```params``` (dict) - A dictionary containing the flags accepted by the package, as key-value pairs, used to filter the request. When the value is a Boolean, the flag takes no value, and should simply be either present or absent. Otherwise, the value is either the default value or a representation of the type of input but will not affect building the command.
+  * ```inputFiles``` (dict) - A key-value representation of the accepted input files, where the value is a description the file used for the corresponding key.
+  * ```outputFiles``` (dict) - A dictionary containing as its keys the output files, which should be saved in the database. When these values have no metadata, the value is ```{}```. Otherwise, the value will be a dictionary with a ```table``` key, containing the name of the table that should hold the metadata, followed by this information represented as key-value pairs and, finally, it might even have an ```original``` field, reserved for whenever the result inherits metadata from one of the ```inputFiles```. To accommodate these unknowns, this attribute consists of key-value pairs where the keys must also be present in ```inputFiles``` and the values are dictionaries consisting of the following attributes:
+    * ```table``` (string) - The table containing the original file.
+    * ```attributes``` (string list) - A list with the metadata attributes to copy from the original file.
     
 #### Template
 
@@ -124,15 +126,15 @@ You should also provide a template for your method's front-end input form. This 
 }
 ```
 The fields have the following meanings:
-  * ```checkboxes``` (dict) -- Every Boolean parameter as key-value pairs where the key is the parameter's name and the value is its description.
-  * ```fields``` (dict) -- Key-value pairs representing text or number input fields where the keys are the parameters' names and the values are dictionaries containing their descriptions and default values.
-  * ```files``` (dict) -- Every input file (except the main one) represented as key-value pairs, where the key is the file's input name and the value is its description.
-  * ```mainFile``` (dict) -- A dictionary containing the name of the main input file and its metadata (for example, if it must be discrete or have missing values).
-  * ```method``` (string) -- The method's name.
-  * ```options``` (dict) -- Key-value pairs with the parameters that have multiple options, where the keys are their names and the values have the their descriptions and a list of the possible values.
+  * ```checkboxes``` (dict) - Every Boolean parameter as key-value pairs where the key is the parameter's name and the value is its description.
+  * ```fields``` (dict) - Key-value pairs representing text or number input fields where the keys are the parameters' names and the values are dictionaries containing their descriptions and default values.
+  * ```files``` (dict) - Every input file (except the main one) represented as key-value pairs, where the key is the file's input name and the value is its description.
+  * ```mainFile``` (dict) - A dictionary containing the name of the main input file and its metadata (for example, if it must be discrete or have missing values).
+  * ```method``` (string) - The method's name.
+  * ```options``` (dict) - Key-value pairs with the parameters that have multiple options, where the keys are their names and the values have the their descriptions and a list of the possible values.
 
 #### Deployment
-If the new packages were written in either Java, you are done. The same goes for Python if no extra libraries are needed.
+If the new packages were written in Java, you are done. The same goes for Python if no extra libraries are needed.
 
 Otherwise, if you use Python but your code requires any other library, add it to ```worker/requirements.txt```. When using languages that would require extra system dependencies, you must add a command to the ```worker/Dockerfile``` that installs them. In both of these scenarios, with the containers already running, execute ```docker-compose up -d --no-deps --build --scale worker=x worker```, where ```x``` is the number of workers.
 
