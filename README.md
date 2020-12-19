@@ -11,7 +11,7 @@ This project only needs Docker installed, which can be done [here](https://docs.
 2. [Download](https://api.github.com/repos/vascocandeias/maestro-backend/zipball) and unzip the source.
 3. Change the environment variables in ```docker-compose.yml```.
 4. Start the containers:
-   * When using Windows, double-click the ```maestro.bat``` file.
+   * When using Windows, double-click the ```maestro.bat``` file.  
    or
    * Open the terminal inside the project's directory and run ```docker-compose up```.
 
