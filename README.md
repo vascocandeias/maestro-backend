@@ -33,7 +33,7 @@ If you want to change the number of workers to ```x```, open a new terminal in t
 You may also add your custom methods to this website to take advantage of its architecture and front-end without having to build an entire system. Read further to know how to upload the program's code, interface and template.
 
 #### Code and interface
-To add more packages, you must copy the program to ```worker/packages```. Furthermore, you must create an interface JSON file in the same directory with a specific scheme. The following file is the interface of the ```eqw``` method, ```eqw.json```:
+To add more packages, you must copy the program to ```worker/packages/```. Furthermore, you must create an interface JSON file in the same directory with a specific scheme. The following file is the interface of the ```eqw``` method, ```eqw.json```:
 
 ```json
 {
@@ -75,7 +75,7 @@ The fields are the following:
     
 #### Template
 
-You should also provide a template for your method's front-end input form. This file should be placed inside ```database/methods``` and look something like the following, which is the template for the ```learnsdtDBN```, ```learnsdtDBN.json```:
+You should also provide a template for your method's front-end input form. This file should be placed inside ```database/methods/``` and look something like the following, which is the template for the ```learnsdtDBN```, ```learnsdtDBN.json```:
 
 ```json
 {
@@ -139,3 +139,8 @@ If the new packages were written in Java, you are done. The same goes for Python
 Otherwise, if you use Python but your code requires any other library, add it to ```worker/requirements.txt```. When using languages that would require extra system dependencies, you must add a command to the ```worker/Dockerfile``` that installs them. In both of these scenarios, with the containers already running, execute ```docker-compose up -d --no-deps --build --scale worker=x worker```, where ```x``` is the number of workers.
 
 ### Changing the front-end
+To customise the front-end, you need to first install [Angular](https://angular.io/guide/setup-local). Then, download the [source code](https://api.github.com/repos/vascocandeias/maestro/zipball) and unzip it. You may then customise it to your liking.
+
+After applying the changes, execute ```ng build -c=prod-local```. The build artifacts will be stored in the ```dist/``` directory (of the front-end project) and should be used to replace the contents of the back-end's ```gateway/maestro/``` directory. 
+
+You can now refresh clean the website's cache and refresh it. If this does not work, try executing ```docker-compose restart gateway``` to reload the gateway service.
