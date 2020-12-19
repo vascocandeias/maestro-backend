@@ -20,7 +20,7 @@
 		"-p": 1
 	},
 	"inputFiles": {
-		"-i": "Input CSV file to be used for network learning"
+		"-i": "input CSV file to be used for network learning"
 	},
 	"outputFiles": {
 		"dbn.txt": {},
