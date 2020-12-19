@@ -139,7 +139,7 @@ If the new packages were written in Java, you are done. The same goes for Python
 Otherwise, if you use Python but your code requires any other library, add it to ```worker/requirements.txt```. When using languages that would require extra system dependencies, you must add a command to the ```worker/Dockerfile``` that installs them. In both of these scenarios, with the containers already running, execute ```docker-compose up -d --no-deps --build --scale worker=x worker```, where ```x``` is the number of workers.
 
 ### Changing the front-end
-To customise the front-end, you need to first install [Angular](https://angular.io/guide/setup-local). Then, download the [source code](https://api.github.com/repos/vascocandeias/maestro/zipball) and unzip it. You may then customise it to your liking.
+To customise the front-end, you need to first install [Angular](https://angular.io/guide/setup-local). Then, download the [source code](https://api.github.com/repos/vascocandeias/maestro/zipball) and unzip it. You may then tweak it to your liking.
 
 After applying the changes, execute ```ng build -c=prod-local```. The build artifacts will be stored in the ```dist/``` directory (of the front-end project) and should be used to replace the contents of the back-end's ```gateway/maestro/``` directory. 
 
