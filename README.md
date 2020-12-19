@@ -5,7 +5,7 @@ This repo contains the on-prem implementation of [MAESTRO](https://vascocandeias
   <img src="Local.png"/>
 </p>
 
-The publicly available website was deployed in AWS, and the relevant code is available [here](https://github.com/vascocandeias/maestro-cloud). You can also find the front-end code [here](https://github.com/vascocandeias/maestro), which can be modified and [added to this back-end](#changing the front-end). 
+The publicly available website was deployed in AWS, and the relevant code is available [here](https://github.com/vascocandeias/maestro-cloud). You can also find the front-end code [here](https://github.com/vascocandeias/maestro), which can be modified and [added to this back-end](#changing-the-front-end). 
 
 ## Getting Started
 
