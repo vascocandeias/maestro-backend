@@ -5,7 +5,10 @@ This repo contains the on-prem implementation of [MAESTRO](https://vascocandeias
 1. Download this repo:
 
 
-
+```sh
+$ npm install --production
+$ NODE_ENV=production node app
+```
 
 <p align="center">
   <img src="Local.png"/>
