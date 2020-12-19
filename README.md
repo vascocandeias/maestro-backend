@@ -30,46 +30,45 @@ Just press ```Ctrl+C```.
 If you want to change the number of workers to ```x```, open a new terminal in the project root directory and run ```docker-compose up -d --scale worker=x```.
 
 ### Adding more packages
-To add more packages, you must copy the program to ```worker/packages```. Furthermore, you must create a json file in the same directory with the following syntax:
+To add more packages, you must copy the program to ```worker/packages```. Furthermore, you must create an interface json file in the same directory with a specific scheme. The following file is the interface of the ```eqw``` method, ```eqw.json```:
 
 ```json
 {
 	"cmd": [
-		"java",
-		"-jar",
-		"packages/sdtDBN.jar",
-		"-pm",
-		"-d",
-		"-toFile",
-		"dbn.ser"
+		"python3",
+		"packages/time_series_tools.py",
+		"eqf"
 	],
 	"params": {
-		"-b": 1,
-		"-m": 1,
-		"-ns": false,
-		"-s": "mdl",
-		"-p": 1,
-		"-sp": false
+		"-n": 2,
+		"-d": ""
 	},
 	"inputFiles": {
-		"-i": "file to be used for network learning",
-		"-is": "static features to be used for network learning",
-		"-mA_dynPast": "dynamic nodes from t'<t that must be parents of each Xi[t]",
-		"-mA_dynSame": "dynamic nodes from t that must be parents of each Xi[t]",
-		"-mA_static": "static nodes that must be parents of each Xi[t]",
-		"-mNotA_dynPast": "dynamic nodes from t'<t that cannot be parents of each Xi[t]",
-		"-mNotA_dynSame": "dynamic nodes from t that cannot be parents of each Xi[t]",
-		"-mNotA_static": "static nodes that cannot be parents of each Xi[t]"
+		"-i": "continuous multivariate time series file"
 	},
 	"outputFiles": {
-		"dbn.txt": {},
-		"dbn.json": {},
-		"dbn.ser": {
-			"table": "networks"
+		"discrete.csv": {
+			"table": "datasets",
+			"discrete": true,
+			"original": {
+				"-i": {
+					"table": "datasets",
+					"attributes": [
+						"missing"
+					]
+				}
+			}
 		}
 	}
 }
 ```
+The fields are the following:
+  * ```cmd``` (strings list) -- The base command to execute the package as a list of strings, to which the remaining parameters will be added.
+  * ```params``` (dict) -- A dictionary containing the flags accepted by the package, as key-value pairs, used to filter the request. When the value is a Boolean, the flag takes no value, and should simply be either present or absent. Otherwise, the value is either the default value or a representation of the type of input but will not affect building the command.
+  * ```inputFiles``` (dict) -- A key-value representation of the accepted input files, where the value is a description the file used for the corresponding key.
+  * ```outputFiles``` (dict) -- A dictionary containing as its keys the output files, which should be saved in the database. When these values have no metadata, the value is ```{}```. Otherwise, the value will be a dictionary with a ```table``` key, containing the name of the table that should hold the metadata, followed by this information represented as key-value pairs and, finally, it might even have an ```original``` field, reserved for whenever the result inherits metadata from one of the ```inputFiles```. To accommodate these unknowns, this attribute consists of key-value pairs where the keys must also be present in ```inputFiles``` and the values are dictionaries consisting of the following attributes:
+    * ```table``` (string) -- The table containing the original file.
+    * ```attributes``` (string list) -- A list with the metadata attributes to copy from the original file.
 
 If the new packages were written in either Java, you are done. The same goes for Python if no extra libraries are needed.
 
