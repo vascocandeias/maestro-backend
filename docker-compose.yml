@@ -35,7 +35,7 @@ services:
     # Email service
     email:
         build:
-            context: ./email_server
+            context: ./email
         environment: 
             # Get the MAIL variables from your email provider
             MAIL_SERVER: mail_server # CHANGE
@@ -44,9 +44,9 @@ services:
             MAIL_PORT: mail_port # CHANGE
             SECRET_KEY: thisissecret # CHANGE
         volumes:
-            - ./email_server/app.py:/app/app.py
-            - ./email_server/uwsgi.ini:/app/uwsgi.ini
-            - ./email_server/.env/:/app/.env
+            - ./email/app.py:/app/app.py
+            - ./email/uwsgi.ini:/app/uwsgi.ini
+            - ./email/.env/:/app/.env
         restart: unless-stopped
 
     # Gateway service
