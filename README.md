@@ -5,7 +5,9 @@ This repo contains the on-prem implementation of [MAESTRO (dynaMic bAyESian neTw
   <img src="Local.png"/>
 </p>
 
-The publicly available website was deployed in AWS, and the relevant code is available [here](https://github.com/vascocandeias/maestro-cloud). You can also find the front-end code [here](https://github.com/vascocandeias/maestro), which can be modified and [added to this back-end](#changing-the-front-end). 
+The publicly available website was deployed in AWS, and the relevant code is available [here](https://github.com/vascocandeias/maestro-cloud). You can also find the front-end code [here](https://github.com/vascocandeias/maestro), which can be modified and [added to this back-end](#changing-the-front-end).
+
+For a more detailed explanation of this architecture, you may read the resulting [article (available soon)](https://github.com/vascocandeias/maestro-cloud) or underlying [thesis (available soon)](https://github.com/vascocandeias/maestro-cloud).
 
 ## Getting Started
 
