@@ -9,7 +9,7 @@
 		"-d": ""
 	},
 	"inputFiles": {
-		"-i": true
+		"-i": "continuous multivariate time series file"
 	},
 	"outputFiles": {
 		"discrete.csv": {

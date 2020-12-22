@@ -11,7 +11,7 @@
 		"-s": "mdl"
 	},
 	"inputFiles": {
-		"-i": true
+		"-i": "time series file with outliers"
 	},
 	"outputFiles": {
 		"dbn.txt": {},

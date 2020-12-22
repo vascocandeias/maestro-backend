@@ -20,7 +20,7 @@
 		"-p": 1
 	},
 	"inputFiles": {
-		"-i": true
+		"-i": "multivariate time series file with missing data"
 	},
 	"outputFiles": {
 		"dbn.txt": {},

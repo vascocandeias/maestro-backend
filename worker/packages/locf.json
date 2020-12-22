@@ -5,7 +5,7 @@
 		"locf"
 	],
 	"inputFiles": {
-		"-i": true
+		"-i": "multivariate time series file with missing values"
 	},
 	"outputFiles": {
 		"imputed.csv": {
