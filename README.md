@@ -9,7 +9,7 @@ The publicly available website was deployed in AWS, and the relevant code is ava
 
 For a more detailed explanation of this architecture, you may read the resulting [article (available soon)](https://github.com/vascocandeias/maestro-cloud) or underlying [thesis (available soon)](https://github.com/vascocandeias/maestro-cloud).
 
-## Getting Started
+## Instructions
 
 ### Prerequisites
 This project only needs Docker installed, which can be done [here](https://docs.docker.com/get-docker).
