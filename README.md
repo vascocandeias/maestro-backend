@@ -145,4 +145,4 @@ To customise the front-end, you need to first install [Angular](https://angular.
 
 After applying the changes, execute ```ng build -c=local-prod```. The build artifacts will be stored in the ```dist/``` directory (of the front-end project) and should be used to replace the contents of the back-end's ```gateway/maestro/``` directory. 
 
-You can now refresh clean the website's cache and refresh it. If this does not work, try executing ```docker-compose restart gateway``` to reload the gateway service.
+You can now clean the browser's cache and refresh it. If this does not work, try executing ```docker-compose restart gateway``` to reload the gateway service.
