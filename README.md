@@ -143,6 +143,6 @@ Otherwise, if you use Python but your code requires any other library, add it to
 ### Changing the front-end
 To customise the front-end, you need to first install [Angular](https://angular.io/guide/setup-local). Then, download the [source code](https://api.github.com/repos/vascocandeias/maestro/zipball) and unzip it. You may then tweak it to your liking.
 
-After applying the changes, execute ```ng build -c=prod-local```. The build artifacts will be stored in the ```dist/``` directory (of the front-end project) and should be used to replace the contents of the back-end's ```gateway/maestro/``` directory. 
+After applying the changes, execute ```ng build -c=local-prod```. The build artifacts will be stored in the ```dist/``` directory (of the front-end project) and should be used to replace the contents of the back-end's ```gateway/maestro/``` directory. 
 
 You can now refresh clean the website's cache and refresh it. If this does not work, try executing ```docker-compose restart gateway``` to reload the gateway service.
