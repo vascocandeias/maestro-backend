@@ -1,5 +1,5 @@
 # MAESTRO back-end
-This repo contains the on-prem implementation of [MAESTRO (dynaMic bAyESian neTwoRks Online)](https://vascocandeias.github.io/maestro), a website for multivariate time series analysis using dynamic Bayesian networks which can be [deployed on-premises](#getting-started). The local architecture is depicted bellow.
+This repo contains the on-prem implementation of [MAESTRO (dynaMic bAyESian neTwoRks Online)](https://vascocandeias.github.io/maestro), a website for multivariate time series analysis using dynamic Bayesian networks which can be [deployed on-premises](#instructions). The local architecture is depicted bellow.
 
 <p align="center">
   <img src="Local.png"/>
