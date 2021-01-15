@@ -1,0 +1,7 @@
+**/local*
+gateway/users
+database/data
+databases/files
+**/.env
+rabbitmq/data
+rabbitmq/logs
