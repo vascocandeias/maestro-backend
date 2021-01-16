@@ -81,13 +81,16 @@ def post_item(userId, table):
 
     id = str(id)
 
-    if request.files.get("file"):
-        file = request.files.get("file")
+    if request.files.get("file") or request.form.get("file"):
         path = os.path.join(FILES_DIR, userId)
         if not os.path.exists(path):
             os.makedirs(path)
         path = os.path.join(path, id)
-        file.save(path)
+        if request.files.get("file"):
+            request.files.get("file").save(path)
+        else:
+            with open(path, "w") as f:
+                print(request.form.get("file"), file=f)
 
     return {
         ids[table]: id
