@@ -2,6 +2,7 @@
     "checkboxes": {},
     "fields": {},
     "files": {
+		"-inf": "Variables to perform inference on",
 		"-fromFile": "Serialized object of the sdtDBN",
 		"-obs": "Dynamic observations",
 		"-obsStatic": "Static observations"
